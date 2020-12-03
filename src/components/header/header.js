@@ -16,13 +16,13 @@ const Header = () => {
                     <Nav className="mr-auto">
                         <Link to='/' className="link">Home</Link>
                         <Link to='/books' className="link">Books</Link>
-                        <Link to='/' className="link">About us</Link>
-                        <Link to='/' className="link">Contacts</Link>
+                        <Link to='/about' className="link">About us</Link>
+                        <Link to='/contact' className="link">Contacts</Link>
 
                     </Nav>
                     <Form inline>
-                        <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                        <Button variant="outline-success">Search</Button>
+                        <Link to='/login' className="link">Login</Link>
+                        <Link to='/register' className="link">Register</Link>
                     </Form>
                 </Navbar.Collapse>
             </Navbar>
