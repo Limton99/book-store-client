@@ -58,10 +58,7 @@ const mapStateToProps = state => {}
 
 
 const mapDispatchToProps = {
-
     logIn: logIn,
-
-
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

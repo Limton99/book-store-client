@@ -6,3 +6,18 @@
     margin-left: 10px;
     color: aliceblue;
 }
+
+.shopping-cart {
+    align-self: center;
+    font-size: 1rem;
+    /*padding-right: 1rem;*/
+    color: white;
+    /*position: fixed; !* Фиксированное положение *!*/
+    /*right: 10px;*/
+}
+
+.shopping-cart .cart-icon{
+    /*font-size: 1.7rem;*/
+    color: white;
+    /*margin-right: 10px;*/
+}

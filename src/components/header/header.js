@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 
 import './header.css';
-import { Button, Form, FormControl, Navbar, Nav } from 'react-bootstrap';
+import {Button, Form, FormControl, Navbar, Nav, Badge} from 'react-bootstrap';
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import {logOut} from "../../store/actions/authActions";
 import {search} from "../../store/actions/bookActions";
+import * as Icon from 'react-bootstrap-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Header = (props) => {
 
@@ -19,6 +21,10 @@ const Header = (props) => {
                 </Form>
             )
         }
+
+        // let totalPrice = props.items.reduce((accumulator, item) => {
+        //     return accumulator + item.total;
+        // }, 0);
 
         return (
             <Form inline>
@@ -49,10 +55,12 @@ const Header = (props) => {
                         <Link to='/books' className="link">Books</Link>
                         <Link to='/about' className="link">About us</Link>
                         <Link to='/contact' className="link">Contacts</Link>
-                        <form >
-                            <input type="text" name='search'  onChange={onChange} />
-                            <button onSubmit={onSearch}>Submit</button>
-                        </form>
+                        <Link to="/cart" className="link">
+                            {/*<Badge badgeContent={props.nrOfItemsInCard} color="primary">*/}
+                            Cart
+                            {/*</Badge>*/}
+                            {/*(${totalPrice})*/}
+                        </Link>
 
                     </Nav>
                     {loginStatement()}

@@ -9,6 +9,7 @@ import LoginPage from "./components/auth/login/login";
 import RegisterPage from "./components/auth/register/register";
 import AboutUsPage from "./components/about/about-us";
 import ContactUsPage from "./components/contacts/contact-us";
+import CartPage from "./components/cart/cart-page";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
                 <Route exact path={'/books/:id'} component={BookPage}/>
                 <Route exact path={'/about'} component={AboutUsPage}/>
                 <Route exact path={'/contact'} component={ContactUsPage}/>
+                <Route path="/cart" component={CartPage}/>
                 <Route exact path={'/login'} component={LoginPage}/>
                 <Route exact path={'/register'} component={RegisterPage}/>
             </Switch>

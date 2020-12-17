@@ -22,7 +22,6 @@ export default function (state=initialState, action){
         axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem('access_token')}`
     }
 
-    console.log(action)
     switch(action.type){
         case SIGN_UP:
             return {
