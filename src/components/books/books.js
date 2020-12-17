@@ -1,6 +1,6 @@
-import {getExclusive, getNew, getPopular, getBooks} from "../../store/actions/bookActions";
+import {getExclusive, getNew, getPopular, getBooks, search} from "../../store/actions/bookActions";
 import {connect} from "react-redux";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {Button, Card, CardDeck, } from "react-bootstrap";
 import './books.css';
 import {Link} from "react-router-dom";
@@ -14,8 +14,11 @@ const BooksPage = (props) => {
 
     const {books} = props.bookReducer;
 
+
+
     return (
         <div className="container">
+
             <br/>
             <CardDeck>
                 {books.map(book => {
@@ -53,6 +56,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     getBooks,
+    search
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BooksPage);

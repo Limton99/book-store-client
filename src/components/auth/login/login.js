@@ -1,6 +1,26 @@
 import './login.css';
+import {logIn, signUp} from "../../../store/actions/authActions";
+import {useState} from "react";
+import {connect} from "react-redux";
 
-const LoginPage = () => {
+const LoginPage = (props) => {
+    console.log(localStorage.getItem('access_token'))
+    const [formData, setFormData] = useState({
+        email: ``,
+        password: ``
+    })
+
+    const handleChange = e => {
+        setFormData({...formData, [e.target.name]: e.target.value})
+        console.log(e.target.value)
+    }
+
+    const handleOk = (e) => {
+        console.log(formData)
+        props.logIn(formData)
+        props.history.push('/')
+    };
+
     return (
         <div className="container">
             <br/>
@@ -9,12 +29,12 @@ const LoginPage = () => {
 
                 <div className="form-group">
                     <label>Email address</label>
-                    <input type="email" className="form-control" placeholder="Enter email" />
+                    <input type="email" name='email' className="form-control" placeholder="Enter email" value={formData.email} onChange={handleChange} />
                 </div>
 
                 <div className="form-group">
                     <label>Password</label>
-                    <input type="password" className="form-control" placeholder="Enter password" />
+                    <input type="password" name='password' className="form-control" placeholder="Enter password" value={formData.password} onChange={handleChange} />
                 </div>
 
                 <div className="form-group">
@@ -24,7 +44,7 @@ const LoginPage = () => {
                     </div>
                 </div>
 
-                <button type="submit" className="btn btn-primary btn-block">Submit</button>
+                <button type="submit" className="btn btn-primary btn-block" onClick={handleOk}>Submit</button>
                 <p className="forgot-password text-right">
                     Forgot <a href="#">password?</a>
                 </p>
@@ -34,4 +54,14 @@ const LoginPage = () => {
     );
 }
 
-export default LoginPage;
+const mapStateToProps = state => {}
+
+
+const mapDispatchToProps = {
+
+    logIn: logIn,
+
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

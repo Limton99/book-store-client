@@ -1,10 +1,41 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import './header.css';
 import { Button, Form, FormControl, Navbar, Nav } from 'react-bootstrap';
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+import {logOut} from "../../store/actions/authActions";
+import {search} from "../../store/actions/bookActions";
 
-const Header = () => {
+const Header = (props) => {
+
+    // console.log(props.isAuth)
+    const loginStatement = () => {
+        if (!props.isAuth) {
+            return (
+                <Form inline>
+                    <Link to='/login' className="link">Login</Link>
+                    <Link to='/register' className="link">Register</Link>
+                </Form>
+            )
+        }
+
+        return (
+            <Form inline>
+                <Button onClick={props.logOut} className="link">Logout</Button>
+
+            </Form>
+        )
+    }
+
+    const onSearch = (value) => {
+        props.search(value)
+
+    }
+
+    const onChange = (e) => onSearch(e.target.value)
+
+
 
 
     return (
@@ -18,16 +49,26 @@ const Header = () => {
                         <Link to='/books' className="link">Books</Link>
                         <Link to='/about' className="link">About us</Link>
                         <Link to='/contact' className="link">Contacts</Link>
+                        <form >
+                            <input type="text" name='search'  onChange={onChange} />
+                            <button onSubmit={onSearch}>Submit</button>
+                        </form>
 
                     </Nav>
-                    <Form inline>
-                        <Link to='/login' className="link">Login</Link>
-                        <Link to='/register' className="link">Register</Link>
-                    </Form>
+                    {loginStatement()}
                 </Navbar.Collapse>
             </Navbar>
         </header>
     );
 }
 
-export default Header;
+const mapStateToProps = state => ({
+    isAuth: state.authReducer.isAuth
+})
+
+const mapDispatchToProps = {
+    logOut,
+    search
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

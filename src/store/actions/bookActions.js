@@ -1,4 +1,4 @@
-import {GET_BOOKS, GET_BOOK, GET_EXCLUSIVE_BOOKS, GET_NEW_BOOKS, GET_POPULAR_BOOKS, IP} from "./types";
+import {GET_BOOKS, GET_BOOK, GET_EXCLUSIVE_BOOKS, GET_NEW_BOOKS, GET_POPULAR_BOOKS, IP, SEARCH} from "./types";
 import axios from "axios";
 
 export const getBooks = () => dispatch => {
@@ -60,3 +60,43 @@ export const getNew = () => dispatch => {
         })
         .catch(err => console.log(err))
 }
+
+export const search = (data) => dispatch => {
+    console.log(data)
+    axios.get("/api/v1/books/search", {"search": "asd"}, {
+        headers: {
+            "Content-type": 'application/json'
+        }
+    })
+        .then(res => {
+            console.log(res.data);
+            dispatch({
+                type: SEARCH,
+                payload: res.data
+            })
+        })
+        .catch(err => console.log(err))
+}
+
+export const saveComment = (formData) => dispatch => {
+    console.log(formData)
+    const fm = new FormData()
+    Object.keys(formData).map(key => {
+        fm.append([key],formData[key])
+    })
+
+    console.log(axios.defaults.headers.common["Authorization"])
+
+    axios.post("/api/v1/comments/create", fm, {
+        headers: {
+            "Content-type": 'application/json'
+        }
+    })
+        .then(res => {
+            console.log(res.data);
+        })
+        .catch(err => console.log(err))
+}
+
+
+
