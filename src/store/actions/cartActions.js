@@ -1,6 +1,6 @@
 import {
     ADD_TO_CART,
-    DELETE_FROM_CART,
+    DELETE_FROM_CART, DELETE_ONE_FROM_CART,
     GET_CART
 } from "./types";
 import axios from "axios";
@@ -34,6 +34,18 @@ export const deleteFromCart = (id) => dispatch => {
         .then(res => {
             dispatch({
                 type: DELETE_FROM_CART,
+                payload: id
+            })
+        })
+        .catch(err => console.log(err))
+}
+
+export const deleteOneFromCart = (id) => dispatch => {
+    axios.get("/api/v1/cart/update/" + id)
+        .then(res => {
+            const payload = {res, id}
+            dispatch({
+                type: DELETE_ONE_FROM_CART,
                 payload: id
             })
         })

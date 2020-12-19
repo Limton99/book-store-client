@@ -71,7 +71,7 @@ export const search = (data) => dispatch => {
         .then(res => {
             console.log(res.data);
             dispatch({
-                type: SEARCH,
+                type: GET_BOOKS,
                 payload: res.data
             })
         })

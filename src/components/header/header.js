@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import './header.css';
 import {Button, Form, FormControl, Navbar, Nav, Badge} from 'react-bootstrap';
@@ -6,12 +6,16 @@ import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import {logOut} from "../../store/actions/authActions";
 import {search} from "../../store/actions/bookActions";
-import * as Icon from 'react-bootstrap-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {getCart} from "../../store/actions/cartActions";
+
+const onMount = props => () => {
+    props.getCart();
+}
 
 const Header = (props) => {
 
-    // console.log(props.isAuth)
+    useEffect(onMount(props), []);
+
     const loginStatement = () => {
         if (!props.isAuth) {
             return (
@@ -22,10 +26,6 @@ const Header = (props) => {
             )
         }
 
-        // let totalPrice = props.items.reduce((accumulator, item) => {
-        //     return accumulator + item.total;
-        // }, 0);
-
         return (
             <Form inline>
                 <Button onClick={props.logOut} className="link">Logout</Button>
@@ -33,16 +33,6 @@ const Header = (props) => {
             </Form>
         )
     }
-
-    const onSearch = (value) => {
-        props.search(value)
-
-    }
-
-    const onChange = (e) => onSearch(e.target.value)
-
-
-
 
     return (
         <header>
@@ -59,7 +49,7 @@ const Header = (props) => {
                             {/*<Badge badgeContent={props.nrOfItemsInCard} color="primary">*/}
                             Cart
                             {/*</Badge>*/}
-                            {/*(${totalPrice})*/}
+                            (${props.total})
                         </Link>
 
                     </Nav>
@@ -71,12 +61,14 @@ const Header = (props) => {
 }
 
 const mapStateToProps = state => ({
-    isAuth: state.authReducer.isAuth
+    isAuth: state.authReducer.isAuth,
+    total: state.cartReducer.orderTotal
 })
 
 const mapDispatchToProps = {
     logOut,
-    search
+    search,
+    getCart
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {deleteFromCart, getCart} from "../../store/actions/cartActions";
+import {addToCart, deleteFromCart, deleteOneFromCart, getCart} from "../../store/actions/cartActions";
 import { connect } from "react-redux";
 
 const onMount = props => () => {
@@ -20,8 +20,11 @@ const CartPage = (props) => {
                 <td>{item.bookTitle}</td>
                 <td>{item.bookCount}</td>
                 <td>${item.bookPrice}</td>
-                {/*{console.log(item.bookPrice.reduce((a, b)=>a+b, 0))}*/}
-                <td><button className="btn btn-danger" onClick={deleteFromCart(item.id)}>Удалить</button></td>
+                <td>
+                    <button className="btn btn-success" onClick={() => props.addToCart(item.book_id)}>+</button>
+                    <button className="btn btn-warning" onClick={() => props.deleteOneFromCart(item.id)}>-</button>
+                    <button className="btn btn-danger" onClick={() => props.deleteFromCart(item.id)}>Удалить</button>
+                </td>
             </tr>
         );
     };
@@ -42,11 +45,11 @@ const CartPage = (props) => {
                 </thead>
 
                 <tbody>
-                { props.items.cart && props.items.cart.map(renderRow) }
+                { props.items && props.items.map(renderRow) }
                 </tbody>
             </table>
             <div className="total">
-                    Total: ${props.items.total}
+                    Total: ${props.total}
             </div>
             <br/>
         </div>
@@ -60,7 +63,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     getCart,
-    deleteFromCart
+    addToCart,
+    deleteFromCart,
+    deleteOneFromCart
 };
 
 

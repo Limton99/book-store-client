@@ -2,7 +2,7 @@ import {GET_BOOKS, GET_NEW_BOOKS, GET_POPULAR_BOOKS, GET_EXCLUSIVE_BOOKS, GET_BO
 
 const initialState = {
     books: [],
-    book: [],
+    book: {},
     exclusive: [],
     popular: [],
     newb: [],

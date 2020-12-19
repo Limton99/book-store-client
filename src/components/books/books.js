@@ -1,11 +1,10 @@
-import {getExclusive, getNew, getPopular, getBooks, search} from "../../store/actions/bookActions";
+import {getBooks, search} from "../../store/actions/bookActions";
 import {connect} from "react-redux";
 import {useEffect, useState} from "react";
-import {Button, Card, CardColumns, CardDeck,} from "react-bootstrap";
+import {Card, CardColumns, CardDeck,} from "react-bootstrap";
 import './books.css';
 import {Link} from "react-router-dom";
 import {addToCart} from "../../store/actions/cartActions";
-// import {getCart} from "../../store/actions/cartActions";
 
 const onMount = props => () => {
     props.getBooks();
@@ -15,11 +14,6 @@ const BooksPage = (props) => {
     useEffect(onMount(props), []);
 
     const {books} = props.bookReducer;
-
-    // const AddButthon = ();
-
-
-
 
     return (
         <div className="container">
@@ -39,7 +33,7 @@ const BooksPage = (props) => {
                                         <p><b>Цена: </b>{book.price}$</p>
                                         <p><b>Количество: </b>{book.count}</p>
                                     </Card.Text>
-                                    <button onClick={addToCart(book.id)} className="btn btn-info add-to-cart">Add to cart</button>
+                                    <button onClick={() => props.addToCart(book.id)} className="btn btn-info add-to-cart">Add to cart</button>
                                 </Card.Body>
                                 <Card.Footer>
                                     {book.category.map(cat => {

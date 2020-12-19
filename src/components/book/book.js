@@ -3,6 +3,7 @@ import {getBook, saveComment} from "../../store/actions/bookActions";
 import {connect} from "react-redux";
 import {Card} from "react-bootstrap";
 import {useEffect, useState} from "react";
+import {addToCart} from "../../store/actions/cartActions";
 
 const onMount = props => () => {
     console.log(props.match.params.id)
@@ -10,12 +11,8 @@ const onMount = props => () => {
 }
 
 const BookPage = (props) => {
-    const id = props.match.params.id
     useEffect(onMount(props), []);
 
-    // useEffect(() => {
-    //     props.getBook(props.match.params.id);
-    // })
     const [formData, setFormData] = useState({
         book_id: props.match.params.id,
         comment: ``
@@ -29,7 +26,6 @@ const BookPage = (props) => {
     const handleSave = (e) => {
         console.log(formData)
         props.saveComment(formData)
-        // e.preventDefault()
     };
 
     const {book} = props.bookReducer;
@@ -45,8 +41,6 @@ const BookPage = (props) => {
 
         return (<span className="badge badge-secondary"></span>);
     }
-
-
 
     const commentForm = (
         <form ><div className="form-group">
@@ -73,6 +67,7 @@ const BookPage = (props) => {
                             <span><b>Просмотры: </b>{book.views}</span>
                             <span><b>Категории: </b>{book.category && book.category.map(cat => <span>{cat.name} </span>)}</span>
                         <Exclusive />
+                        <button onClick={()=>props.addToCart(book.id)} className="btn btn-info add-to-cart">Add to cart</button>
                     </div>
                 </div>
             </Card>
@@ -102,7 +97,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     getBook,
-    saveComment
+    saveComment,
+    addToCart
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookPage);
